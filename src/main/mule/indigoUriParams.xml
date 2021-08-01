@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="indigoUriParamsFlow" doc:id="62053c04-5bf9-458a-b439-927ecda5981d" >
+		<logger level="INFO" doc:name="Logger" doc:id="bcfae4d3-701a-482e-9e6f-ba301284e9e7" message="Request recieved ...............#[attributes]"/>
+		<http:request method="GET" doc:name="Request" doc:id="6489619d-0273-43d8-b3dd-854058ef7a1d" config-ref="HTTP_Request_configuration" path="/api/getFlights">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	from : attributes.uriParams.source,
+	to : attributes.uriParams.destination,
+	depatureDate : attributes.uriParams.doj
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="077a9af1-96a1-4106-a11f-de2d1eb3a70a" message="Response from Terget System.............#[payload]"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="1ccd6bd7-7fd5-4e3b-91ee-640ae85ad982" >
+				<ee:transform doc:name="Transform Message" doc:id="c934e167-5086-4ecd-9d1e-27085d3169dc" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	StatusCode:500,
+	Message:"This server is not available"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+</mule>

@@ -1,0 +1,105 @@
+#%RAML 1.0
+title: indigoApi
+/indigoAirlines:
+  get:
+    queryParameters:
+      source:
+        example:
+          INDIA
+      destination:
+        example:
+              USA
+      doj:
+        example:
+                  10-JANUARY-2010        
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+                      [
+                        {
+                            "Id": "201",
+                            "airlineName": "INDIGO",
+                            "fCode": "INDI101",
+                            "fromAirportCode": "HYD",
+                            "toAirportCode": "DUBAI",
+                            "departureDate": "26-Jan-2010",
+                            "emptySeats": "0",
+                            "totalSeats": 200,
+                            "price": "199",
+                            "planeType": "INDIGO 737"
+                        },
+                        {
+                            "Id": "202",
+                            "airlineName": "INDIGO",
+                            "fCode": "INDI102",
+                            "fromAirportCode": "HYD",
+                            "toAirportCode": "DUBAI",
+                            "departureDate": "26-Jan-2010",
+                            "emptySeats": "24",
+                            "totalSeats": 350,
+                            "price": "450",
+                            "planeType": "INDIGO 747"
+                        },
+                        {
+                            "Id": "203",
+                            "airlineName": "INDIGO",
+                            "fCode": "INDIGO103",
+                            "fromAirportCode": "HYD",
+                            "toAirportCode": "DUBAI",
+                            "departureDate": "26-Jan-2010",
+                            "emptySeats": "33",
+                            "totalSeats": 400,
+                            "price": "450",
+                            "planeType": "INDIGO 757"
+                        }
+                    ]
+                    
+  /{source}/{destination}/{doj}:   
+      get:
+        responses:
+          200:
+            body:
+                application/json:
+                  example:
+                            [
+                            {
+                                "Id": "201",
+                                "airlineName": "INDIGO",
+                                "fCode": "INDI101",
+                                "fromAirportCode": "HYD",
+                                "toAirportCode": "DUBAI",
+                                "departureDate": "26-Jan-2010",
+                                "emptySeats": "0",
+                                "totalSeats": 200,
+                                "price": "199",
+                                "planeType": "INDIGO 737"
+                            },
+                            {
+                                "Id": "202",
+                                "airlineName": "INDIGO",
+                                "fCode": "INDI102",
+                                "fromAirportCode": "HYD",
+                                "toAirportCode": "DUBAI",
+                                "departureDate": "26-Jan-2010",
+                                "emptySeats": "24",
+                                "totalSeats": 350,
+                                "price": "450",
+                                "planeType": "INDIGO 747"
+                            },
+                            {
+                                "Id": "203",
+                                "airlineName": "INDIGO",
+                                "fCode": "INDIGO103",
+                                "fromAirportCode": "HYD",
+                                "toAirportCode": "DUBAI",
+                                "departureDate": "26-Jan-2010",
+                                "emptySeats": "33",
+                                "totalSeats": 400,
+                                "price": "450",
+                                "planeType": "INDIGO 757"
+                            }
+                        ]
+                     
+                             
